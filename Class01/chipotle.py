@@ -88,23 +88,42 @@ print '\n'
 """PART05: Calculate the average number of toppings per burrito"""
 
 
+
+
+
+
+
+"""PART 06: Create a dictionary in which the keys represent chip orders and the values represent the total number of orders"""
 chipOrdersDict = {}
 chipOrdersSet = set()
-chipOrders_2 = []
+chipOrdersList = []
 totalChipOrders = 0
+
+
+
+print '\n'
+print "The Chip Order Totals By Chip Type Was as Follows:"
+print "--------------------------------------------------" 
 
 #This counts the number of chip orders without defaultdict
 
 #This creates a list of tuples.  Each tuple contains item name, and qty
 #It also creates a set of the unique values of item names
 for line in data:
-    if ('Chips' or 'chips') in line[2]:
-        tempTuple = ([line[2], line[1]])
-        chipOrders_2.append(tempTuple)
-        chipOrdersSet.add(line[2])        
-        chipOrdersDict[line2] = line[1]
+    if 'Chips' in line[2]:     #Gets every line of data that has Chips in the item name
+        tempTuple = ([line[2], int(line[1])])    #Creates a tuple if Chips is found in the item name
+        chipOrdersList.append(tempTuple)      #Appends the tuple to a chipOrders_2 list
+        chipOrdersSet.add(line[2])          #Independently creates a set with each chip order type
+        
+for item in chipOrdersSet:
+    chipOrdersDict[item] = int(0)        
 
-#This creates a list of tuples.  Each tuple contains item name, and qty
+for item in chipOrdersList:
+    chipOrdersDict[item[0]] += item[1]        
+
+for key, value in chipOrdersDict.iteritems():
+    print key, ": ", value    
+ #This creates a list of tuples.  Each tuple contains item name, and qty
 #It also creates a set of the unique values of item names
 
 
@@ -112,8 +131,10 @@ for line in data:
 
 for item in chipOrders_2:
     totalChipOrders += int(item[1])
+print '\n'
 print 'The total number of chip orders was: %i ' % totalChipOrders
 #This counts the number of chip orders without defaultdict
+"""PART 06: Create a dictionary in which the keys represent chip orders and the values represent the total number of orders"""
 
 
 
