@@ -83,6 +83,7 @@ for index in range(len(data)):
         numberOfToppingsForCurrentBurrito_2 += len(data[index][3]) * int(data[index][1]) #Method "_2"
         numberOfBurritoOrders_1 += 1 #Method "_1"
         numberOfBurritoOrders_2 += int(data[index][1]) * 1 #Method "_2"
+
 print '\n'
 print 'The average number of toppings is %f per burrito' % (float(numberOfToppingsForCurrentBurrito_1) / float(numberOfBurritoOrders_1)) #Method "_1"
 print 'The average number of toppings is %f when counting duplicate items in orders' % (float(numberOfToppingsForCurrentBurrito_2) / float(numberOfBurritoOrders_2)) #Method "_2"
