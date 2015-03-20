@@ -37,7 +37,7 @@ for line in data:
 """This takes the orderNumbers set and converts it to a sorted list"""
 sortedOrderList = []
 sortedOrderList = list(orderNumbers)
-sortedOrderList = [int(i) for i in tempList] #Converts each order number to an int
+sortedOrderList = [int(i) for i in sortedOrderList] #Converts each order number to an int
 sortedOrderList.sort() #Sorts the order numbers
 """This takes the orderNumbers set and converts it to a sorted list"""
 
@@ -138,11 +138,6 @@ print 'The total number of chip orders was: %i ' % totalChipOrders
 
 #This counts the number of chip orders without defaultdict
 """PART 06: Create a dictionary in which the keys represent chip orders and the values represent the total number of orders"""
-
-
-
-
-
 
 
 
