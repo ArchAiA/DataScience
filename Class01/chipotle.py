@@ -130,14 +130,15 @@ for key, value in chipOrdersDict.iteritems():
 
 
 
-"""
-for item in chipOrdersDict:
+
+for item in chipOrdersList:
     totalChipOrders += int(item[1])
 print '\n'
 print 'The total number of chip orders was: %i ' % totalChipOrders
-"""
+
 #This counts the number of chip orders without defaultdict
 """PART 06: Create a dictionary in which the keys represent chip orders and the values represent the total number of orders"""
+
 
 
 
