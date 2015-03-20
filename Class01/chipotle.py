@@ -48,8 +48,8 @@ dollarValueOfAllOrders = 0
 for index in range(len(data)):
     dollarValueOfAllOrders += int(data[index][1]) * float(data[index][4][1:])
 
-print 'The average dollar value for orders is: $%0.2f' % (dollarValueOfAllOrders / len(sortedOrderList))
 print '\n'
+print 'The average dollar value for orders was: $%0.2f' % (dollarValueOfAllOrders / len(sortedOrderList))
 """Calculates the total value of all orders and divides by number of orders: PART 03: Calculate the average price of an order"""
 
 
@@ -60,7 +60,8 @@ uniqueSodas = set()
 for index in range(len(data)):
     if ('Canned Soda' or 'Canned Soft Drink') in data[index][2]:
         uniqueSodas.add(data[index][3])
-        
+
+print '\n'
 print "Chiptole stocks the following \'Canned Soft Drinks\' and \'Canned Sodas\':"
 
 for x in uniqueSodas:
@@ -82,9 +83,9 @@ for index in range(len(data)):
         numberOfToppingsForCurrentBurrito_2 += len(data[index][3]) * int(data[index][1]) #Method "_2"
         numberOfBurritoOrders_1 += 1 #Method "_1"
         numberOfBurritoOrders_2 += int(data[index][1]) * 1 #Method "_2"
+print '\n'
 print 'The average number of toppings is %f per burrito' % (float(numberOfToppingsForCurrentBurrito_1) / float(numberOfBurritoOrders_1)) #Method "_1"
 print 'The average number of toppings is %f when counting duplicate items in orders' % (float(numberOfToppingsForCurrentBurrito_2) / float(numberOfBurritoOrders_2)) #Method "_2"
-print '\n'
 """PART05: Calculate the average number of toppings per burrito"""
 
 
