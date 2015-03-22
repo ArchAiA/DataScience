@@ -71,27 +71,31 @@ for x in uniqueSodas:
 
 
 """PART05: Calculate the average number of toppings per burrito"""
-numberOfToppingsForCurrentBurrito_1 = 0 #Not counting multiples within same order: Method "_1"
+numberOfBurritoToppings_1 = 0           #Not counting multiples within same order: Method "_1"
 numberOfBurritoOrders_1 = 0             #Not counting multiples within same order: Method "_1"
+tempToppingsList_1 = []
 
-numberOfToppingsForCurrentBurrito_2 = 0 #Counting multiples within same order: Method "_2"
+numberOfBurritoToppings_2 = 0           #Counting multiples within same order: Method "_2"
 numberOfBurritoOrders_2 = 0             #Counting multiples within same order: Method "_2"
+
 
 for index in range(len(data)):
     if 'Burrito' in data[index][2]:
-        numberOfToppingsForCurrentBurrito_1 += len(data[index][3]) #Method "_1"
-        numberOfToppingsForCurrentBurrito_2 += len(data[index][3]) * int(data[index][1]) #Method "_2"
-        numberOfBurritoOrders_1 += 1 #Method "_1"
-        numberOfBurritoOrders_2 += int(data[index][1]) * 1 #Method "_2"
+        tempToppingsList_1 = data[index][3].split(',')
+        numberOfBurritoToppings_1 += len(tempToppingsList_1)
+        numberOfBurritoOrders_1  += 1
+
+        numberOfBurritoToppings_2 += (len(tempToppingsList_1) * int(data[index][1]))
+        numberOfBurritoOrders_2 += (1 * int(data[index][1]))
+
+avgNumberOfToppings_1 = float(numberOfBurritoToppings_1) / numberOfBurritoOrders_1
+avgNumberOfToppings_2 = float(numberOfBurritoToppings_2) / numberOfBurritoOrders_2
+
 
 print '\n'
-print 'The average number of toppings is %f per burrito' % (float(numberOfToppingsForCurrentBurrito_1) / float(numberOfBurritoOrders_1)) #Method "_1"
-print 'The average number of toppings is %f when counting duplicate items in orders' % (float(numberOfToppingsForCurrentBurrito_2) / float(numberOfBurritoOrders_2)) #Method "_2"
+print 'The average number of toppings is %f per burrito' % avgNumberOfToppings_1 #Method "_1"
+print 'The average number of toppings is %f when counting duplicate items in orders' % avgNumberOfToppings_2 #Method "_2"
 """PART05: Calculate the average number of toppings per burrito"""
-
-
-
-
 
 
 
@@ -148,6 +152,27 @@ print 'The total number of chip orders was: %i ' % totalChipOrders
 
 
 
+
+''' INCORRECT BECAUSE IT COUNTS THE NUMBER OF CHARACTERS IN THE BURRITO TOPPINGS LIST ENTRY
+"""PART05: Calculate the average number of toppings per burrito"""
+numberOfToppingsForCurrentBurrito_1 = 0 #Not counting multiples within same order: Method "_1"
+numberOfBurritoOrders_1 = 0             #Not counting multiples within same order: Method "_1"
+
+numberOfToppingsForCurrentBurrito_2 = 0 #Counting multiples within same order: Method "_2"
+numberOfBurritoOrders_2 = 0             #Counting multiples within same order: Method "_2"
+
+for index in range(len(data)):
+    if 'Burrito' in data[index][2]:
+        numberOfToppingsForCurrentBurrito_1 += len(data[index][3]) #Method "_1"
+        numberOfToppingsForCurrentBurrito_2 += len(data[index][3]) * int(data[index][1]) #Method "_2"
+        numberOfBurritoOrders_1 += 1 #Method "_1"
+        numberOfBurritoOrders_2 += int(data[index][1]) * 1 #Method "_2"
+
+print '\n'
+print 'The average number of toppings is %f per burrito' % (float(numberOfToppingsForCurrentBurrito_1) / float(numberOfBurritoOrders_1)) #Method "_1"
+print 'The average number of toppings is %f when counting duplicate items in orders' % (float(numberOfToppingsForCurrentBurrito_2) / float(numberOfBurritoOrders_2)) #Method "_2"
+"""PART05: Calculate the average number of toppings per burrito"""
+'''
 
 
 
