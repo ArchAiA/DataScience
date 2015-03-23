@@ -173,10 +173,30 @@ print 'The total number of chip orders was:', sum(chipCount.values())
 
 
 
-#BONUS: Create a defaultdict that counts the number paired items that were sold
-#together in order to find out what customers would like to buy packaged
+
+
+'''Which two items sell together the most'''
+'''
+#This creates a set of unique order numbers
+orderNumbersSet = set()
+for line in data:
+    orderNumbersSet.add(line[0])
+#This creates a set of unique order numbers
+    
+#This creates a unique set of item pairs
+itemInventory = []
+itemInventoryDict = defaultdict(list)
+
+orderNumbersList = list(orderNumbersSet)
+
+for x in range(len(data)):
+    for i in range(len(orderNumbersList)):
+        if data[x][0] == orderNumbersList[i]:
+'''
+import pprint
 
 productsSet = set()
+
 orderItemList = []
 
 #Creating tuples of orderNumbers and orderItems
@@ -191,8 +211,42 @@ dictionaryOfOrders = defaultdict(list)
 for uniqueNumber, uniqueItem in orderItemList:
     dictionaryOfOrders[uniqueNumber].append(uniqueItem)
 
-#Creating pair-values for each order in dictionaryOfOrders
+#printing the dictionary
+for key in dictionaryOfOrders:
+    print key, ':', dictionaryOfOrders[key]
+
+#creating a list of unique product combinations
+productPairTuples = ()
+productPairList = []
+
+productsList = list(productsSet)
+for index in range(len(productsList)):
+    for index_2 in range(index + 1, len(productsList) - index):
+        productPairTuples = (productsList[index], productsList[index_2])
+        productPairList.append(productPairTuples)
+
+
+
+#converting each tuple to a string
 pairCount = defaultdict(int)
+pairList = []
+pairTuple = ()
+
+
+'''
+for order in range(len(sortedOrderList)):
+    tempList = []
+    for item in dictionaryOfOrders:
+        if str(order) == item:
+            tempList.append(dictionaryOfOrders[item])
+            print tempList.sort()
+'''
+
+#for item in pairCount:
+#    print item, pairCount[item]
+#for item1, item2 in productPairList:
+#    pairCount[]
+
 comboList = []
 sortList = []
 
@@ -206,16 +260,14 @@ for dictItem in dictionaryOfOrders:
 for item in comboList:
     pairCount[item] += 1        
 
-#Output results
-print '\n'
 
-print "The following pairs of items sold well together:"
-print "________________________________________________"
-for pair in pairCount:
-    if pairCount[pair] > 100:
-        print pair, ":", pairCount[pair]
-#BONUS: Create a defaultdict that counts the number paired items that were sold
-#together in order to find out what customers would like to buy packaged
+
+
+
+
+
+
+
 
 
 

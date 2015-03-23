@@ -208,12 +208,15 @@ for item in comboList:
 
 #Output results
 print '\n'
+#for pair in pairCount:
+#    print pair, ":", pairCount[pair]
 
-print "The following pairs of items sold well together:"
-print "________________________________________________"
 for pair in pairCount:
     if pairCount[pair] > 100:
         print pair, ":", pairCount[pair]
+
+
+
 #BONUS: Create a defaultdict that counts the number paired items that were sold
 #together in order to find out what customers would like to buy packaged
 
