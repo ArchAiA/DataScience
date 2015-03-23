@@ -93,13 +93,8 @@ avgNumberOfToppings_2 = float(numberOfBurritoToppings_2) / numberOfBurritoOrders
 
 
 print '\n'
-<<<<<<< HEAD
 print 'The average number of toppings was %f per burrito' % avgNumberOfToppings_1 #Method "_1"
 print 'The average number of toppings was %f when counting duplicate items in orders' % avgNumberOfToppings_2 #Method "_2"
-=======
-print 'The average number of toppings is %f per burrito' % avgNumberOfToppings_1 #Method "_1"
-print 'The average number of toppings is %f when counting duplicate items in orders' % avgNumberOfToppings_2 #Method "_2"
->>>>>>> b5be30c1ff863f472c1d0d8f879656ae4be3ae83
 """PART05: Calculate the average number of toppings per burrito"""
 
 
@@ -171,17 +166,13 @@ print 'The Chip Order Totals By Chip Type Was As Follows:'
 print '--------------------------------------------------'
 for line in chipCount:
     print line, ': ', chipCount[line]
-<<<<<<< HEAD
     
 print '_________________________________________'    
 print 'The total number of chip orders was:', sum(chipCount.values()) 
-=======
->>>>>>> b5be30c1ff863f472c1d0d8f879656ae4be3ae83
 """PART 06: Create a dictionary using defaultsdict in which the keys represent chip orders and the values represent the total number of orders"""
 
 
 
-<<<<<<< HEAD
 #BONUS: Create a defaultdict that counts the number paired items that were sold
 #together in order to find out what customers would like to buy packaged
 
@@ -225,14 +216,6 @@ for pair in pairCount:
         print pair, ":", pairCount[pair]
 #BONUS: Create a defaultdict that counts the number paired items that were sold
 #together in order to find out what customers would like to buy packaged
-=======
-
-
-
-
-
-
->>>>>>> b5be30c1ff863f472c1d0d8f879656ae4be3ae83
 
 
 
@@ -261,41 +244,6 @@ print '\n'
 print 'The average number of toppings is %f per burrito' % (float(numberOfToppingsForCurrentBurrito_1) / float(numberOfBurritoOrders_1)) #Method "_1"
 print 'The average number of toppings is %f when counting duplicate items in orders' % (float(numberOfToppingsForCurrentBurrito_2) / float(numberOfBurritoOrders_2)) #Method "_2"
 
-"""PART05: Calculate the average number of toppings per burrito"""
-'''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-''' INCORRECT BECAUSE IT COUNTS THE NUMBER OF CHARACTERS IN THE BURRITO TOPPINGS LIST ENTRY
-"""PART05: Calculate the average number of toppings per burrito"""
-numberOfToppingsForCurrentBurrito_1 = 0 #Not counting multiples within same order: Method "_1"
-numberOfBurritoOrders_1 = 0             #Not counting multiples within same order: Method "_1"
-
-numberOfToppingsForCurrentBurrito_2 = 0 #Counting multiples within same order: Method "_2"
-numberOfBurritoOrders_2 = 0             #Counting multiples within same order: Method "_2"
-
-for index in range(len(data)):
-    if 'Burrito' in data[index][2]:
-        numberOfToppingsForCurrentBurrito_1 += len(data[index][3]) #Method "_1"
-        numberOfToppingsForCurrentBurrito_2 += len(data[index][3]) * int(data[index][1]) #Method "_2"
-        numberOfBurritoOrders_1 += 1 #Method "_1"
-        numberOfBurritoOrders_2 += int(data[index][1]) * 1 #Method "_2"
-
-print '\n'
-print 'The average number of toppings is %f per burrito' % (float(numberOfToppingsForCurrentBurrito_1) / float(numberOfBurritoOrders_1)) #Method "_1"
-print 'The average number of toppings is %f when counting duplicate items in orders' % (float(numberOfToppingsForCurrentBurrito_2) / float(numberOfBurritoOrders_2)) #Method "_2"
 """PART05: Calculate the average number of toppings per burrito"""
 '''
 
