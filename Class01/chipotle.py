@@ -145,6 +145,54 @@ print 'The total number of chip orders was: %i ' % totalChipOrders
 
 
 
+"""PART 06: Create a dictionary using defaultsdict in which the keys represent chip orders and the values represent the total number of orders"""
+from collections import defaultdict
+
+chipInventory = []
+chipCount = defaultdict(int)
+
+
+for line in data:
+    if "Chips" in line[2]:
+        for i in range(int(line[1])):
+            chipInventory.append(line[2])
+        
+for item in chipInventory:
+    chipCount[item] += 1        
+
+print '\n'
+print 'Using defaultdict'
+print 'The Chip Order Totals By Chip Type Was As Follows:'
+print '--------------------------------------------------'
+for line in chipCount:
+    print line, ': ', chipCount[line]
+"""PART 06: Create a dictionary using defaultsdict in which the keys represent chip orders and the values represent the total number of orders"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
