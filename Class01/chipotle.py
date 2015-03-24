@@ -95,8 +95,8 @@ avgNumberOfToppings_2 = float(numberOfBurritoToppings_2) / numberOfBurritoOrders
 print '\n'
 print 'The average number of toppings was %f per burrito' % avgNumberOfToppings_1 #Method "_1"
 print 'The average number of toppings was %f when counting duplicate items in orders' % avgNumberOfToppings_2 #Method "_2"
-print 'The average number of toppings is %f per burrito' % avgNumberOfToppings_1 #Method "_1"
-print 'The average number of toppings is %f when counting duplicate items in orders' % avgNumberOfToppings_2 #Method "_2"
+#print 'The average number of toppings is %f per burrito' % avgNumberOfToppings_1 #Method "_1"
+#print 'The average number of toppings is %f when counting duplicate items in orders' % avgNumberOfToppings_2 #Method "_2"
 """PART05: Calculate the average number of toppings per burrito"""
 
 
@@ -202,8 +202,8 @@ from itertools import combinations
 for dictItem in dictionaryOfOrders:
 
     dictionaryOfOrders[dictItem].sort()
-    for comb in combinations(dictionaryOfOrders[dictItem], 2):
-        comboList.append(comb)
+    for index in combinations(dictionaryOfOrders[dictItem], 2):
+        comboList.append(index)
 
 for item in comboList:
     pairCount[item] += 1        
