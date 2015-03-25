@@ -58,7 +58,8 @@ print 'The average dollar value for orders was: $%0.2f' % (dollarValueOfAllOrder
 uniqueSodas = set()
 
 for index in range(len(data)):
-    if ('Canned Soda' or 'Canned Soft Drink') in data[index][2]:
+    #if ('Canned Soda' in data[index][2] or 'Canned Soft Drink' in data[index][2]):
+    if ('Canned') in data[index][2]:
         uniqueSodas.add(data[index][3])
 
 print '\n'
