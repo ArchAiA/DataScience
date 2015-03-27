@@ -65,6 +65,90 @@ float(drinks.beer_servings.sum()) / drinks.beer_servings.count() #Calculating th
 
 #Count the number of occurrences of each 'continent' value
 drinks.continent.value_counts()
+drinks.continent == 'EU'
+drinks[drinks.continent == 'EU'].country
+
+drinks[drinks.beer_servings >= 158]
+drinks[drinks.beer_servings <= 10]
+type(drinks[drinks.beer_servings <= 10])
+drinks[drinks.beer_servings <= 10][['country', 'beer_servings']] #Again, note the double brackets for printing one column of a dataframe
+
+#Calculate the average 'beer servings' for all of Europe
+drinks[drinks.continent == 'EU'][['beer_servings']].mean()
+drinks[drinks.continent == 'EU'].beer_servings.mean() #This way is better
+
+#More complex logical filtering
+drinks[(drinks.continent == 'EU') & (drinks.wine_servings > 300)]
+
+drinks[(drinks.continent == 'EU') | (drinks.wine_servings > 300)]
+drinks[(drinks.continent == 'EU') | (drinks.wine_servings > 300)].beer_servings.mean()
+
+#Show countries that have more than mean beer servings
+drinks[drinks.beer_servings > drinks.beer_servings.mean()].country #NOTE dot notation does not work if you have a space in your column name
+drinks[drinks.beer_servings > drinks.beer_servings.mean()]['country']
+
+
+
+
+'''EXERCISE #1'''
+# 1. What is the maximum number of total literes of pure alcohol
+max(drinks.total_litres_of_pure_alcohol)
+# Answer: 14.4 - WRONG
+#Class answer uses pandas max() not python max()
+drinks.total_litres_of_pure_alcohol.max() 
+
+
+
+# 2. Which country has the maximum number of total litres of pure alcohol
+drinks[drinks.total_litres_of_pure_alcohol == max(drinks.total_litres_of_pure_alcohol)].country
+# Answer: Belarus - WRONG
+#Class answer uses pandas max() and uses string-list notation
+drinks[drinks.total_litres_of_pure_alcohol == drinks.total_litres_of_pure_alcohol.max()]['country']
+drinks[drinks.total_litres_of_pure_alcohol == drinks.total_litres_of_pure_alcohol.max()].country
+
+
+
+# 3. Does Haiti or Belarus consumre more servings of spirits
+drinks[(drinks.country == 'Belarus') | (drinks.country == 'Haiti')][['country', 'spirit_servings']]
+# Answer: Belarus
+
+
+
+# 4. How many countries have more than 300 wine servings or more than 300 beer
+# servings or more than 300 spirit servings?
+drinks[(drinks.beer_servings > 300) | (drinks.wine_servings > 300) | (drinks.spirit_servings > 300)].count()
+# Answer: 18 - WRONG
+#Class answer only counts items in list of matching countries instead of counting all
+drinks[(drinks.beer_servings > 300) | (drinks.wine_servings > 300) | (drinks.spirit_servings > 300)].country.count()
+
+
+# 5. FOr the countries in the previous question, what is the average total
+# litres of pure alcohol
+drinks[(drinks.beer_servings > 300) | (drinks.wine_servings > 300) | (drinks.spirit_servings > 300)].total_litres_of_pure_alcohol.mean()
+# Answer: 10.2611111 - CORRECT
+#Class Answer
+drinks.total_litres_of_pure_alcohol[(drinks.beer_servings > 300) | (drinks.wine_servings > 300) | (drinks.spirit_servings > 300)].mean()
+
+
+
+
+'''BREAK'''
+
+
+
+#SORTING
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
