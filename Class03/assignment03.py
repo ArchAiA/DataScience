@@ -67,10 +67,18 @@ autos[['car_name']].max()
 
 Deprecated for being STOOPID'''
 
+
+
 #This is the easy answer for 2D...  Still would like to print out using 
 #iteritems to make the output more human readable
+
+for index in autos.columns:
+    print index, "\tMin:", autos.min()[index], "\tMax:", autos.max()[index]  
+    
+'''Deprecated in favor of above loop    
 autos.min()
 autos.max()
+Deprecated in favor of above loop'''
 # 2D What are the ranges for the values in each column? (Not Using iteritems)
 
 
