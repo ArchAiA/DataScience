@@ -29,7 +29,7 @@ Reading Files, Summarizing, Selecting, Filtering, Sorting, Detecting Duplicates
 drinks = pd.read_table('drinks.csv', sep=',')   # read_table is more general
 drinks = pd.read_csv('drinks.csv')  # read_csv is specific to CSV and implies sep=","
 # Can also read from URLs
-drinks = pd.read_csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv')
+#drinks = pd.read_csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv')
 
 
 '''
@@ -49,7 +49,7 @@ drinks.head()                   # print the first 5 rows
 drinks.head(10)                 # printthe first 10 rows
 drinks.tail()                   # print the last 5 rows
 drinks.describe()               # summarize all numeric columns
-drinks.describe(include='all')  # includes non numeric columns; new in pandas 0.15.0
+#drinks.describe(include='all')  # includes non numeric columns; new in pandas 0.15.0
 drinks.index                    # "the index" (aka "the labels")
 drinks.columns                  # column names (which is "an index")
 drinks.dtypes                   # data types of each column
