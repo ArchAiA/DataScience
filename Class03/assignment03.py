@@ -117,10 +117,10 @@ autos.groupby('model_year').mpg.mean().plot(kind='bar', title='Mean MPG by Model
 plt.xlabel('Model Year')
 plt.ylabel('Mean MPG')
 plt.show()
+# 5 Use plots, groupby, aggregations, etc to explore the relationships
+# between mpg and the other variables
 
-
-autos.boxplot(columns='mpg', by='origin')
 
 #SCRATCH
-for item in autos:
-    print item.mean()
+#for item in autos:
+#    print item.mean()
