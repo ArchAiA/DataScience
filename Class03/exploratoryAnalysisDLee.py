@@ -137,22 +137,129 @@ drinks.total_litres_of_pure_alcohol[(drinks.beer_servings > 300) | (drinks.wine_
 
 
 #SORTING
+drinks.beer_servings.order() #only works for a series
+drinks.spirit_servings.order()
+drinks.sort_index() #This automatically sorts by the primary index
+drinks.sort_index(by='beer_servings') #This sorts by a specific column
+drinks.sort_index(by='beer_servings').head(10)
+drinks.sort_index(by='beer_servings', ascending=False).head(10)
+drinks.sort_index(by=['beer_servings', 'wine_servings'], ascending = False).head(10) #Adding a secondary sort column
+
+
+#Determine which 10 countries have the highest 'total_litres_of_pure_alcohol'
+drinks.sort_index(by='total_litres_of_pure_alcohol', ascending=False).head(10)
+drinks.sort_index(by='total_litres_of_pure_alcohol').tail(10)
+
+
+# Determine which country has the highest value for beer servings
+drinks.sort_index(by='beer_servings', ascending=False).head(1)
+drinks.sort_index(by='beer_servings').tail(1)
+drinks[drinks.beer_servings == drinks.beer_servings.max()].country
+drinks[drinks.beer_servings == drinks.beer_servings.max()]['country']
+
+
+#Use dot notation to string together commands
+#How many countries in each continent have beer_servings greater than 182?
+
+drinks[drinks.beer_servings > 182].continent.value_counts()
 
 
 
 
+#Add a new column as a function of existing columns
+#NOTE: Can't assign to an attribute (e.g., 'drinks.total_servings') - THIS MEANS DOT NOTATION WILL NOT WORK IN ASSIGNMENT WHEN THE ATTRIBUTE DOES NOT ALREADY EXIST
+#Using brackets resembles adding a new dictionary key/value pair
+drinks['total_servings'] = drinks.beer_servings + drinks.wine_servings + drinks.spirit_servings
+drinks['alcohol_ml'] = drinks.total_litres_of_pure_alcohol * 1000
+drinks.total_servings #What about NOTE - NOTE WAS ONLY ADDRESSSING INITIAL ASSIGNMENT
+drinks.alcohol_ml #What about NOTE - NOTE WAS ONLY ADDRESSSING INITIAL ASSIGNMENT
+drinks.tail(10)
 
 
 
 
+'''Split Apply Combine'''
+
+#For each continent, caluclate mean beer servings
+drinks.groupby('continent').beer_servings.mean()
+
+#For each continent, calculate the mean of all of the numberic columns
+drinks.groupby('continent').mean()
+#Can I use groupby with logical operands (etc. beer_servings > 180)?
+
+drinks.groupby(['continent', 'country']).beer_servings.mean()
+drinks.groupby([drinks.beer_servings < 50, drinks.beer_servings >= 50]).count() #???
+drinks.groupby([drinks.beer_servings < 50, drinks.beer_servings >= 50]).mean() #???
+
+
+#For each continent count number of occurrences
+drinks.groupby('continent').continent.count() #Returns a list of number of requested item in the group 
+drinks.groupby('continent').count() #Returns a list of each column total for each continent
+drinks.continent.value_counts() #I think that this would be faster than the above
 
 
 
 
+'''A little numpy'''
+probs = np.array([0.51, 0.50, 0.02, 0.49, 0.78])
+#np.where functions like an IF statement in excel
+# np.where(condition, value if true, value if false)
+np.where(probs >= 0.5, 1, 0) #Returns a 1 for the element if greater than 0.5, a zero if otherwise
+drinks['lots_of_beer'] = np.where(drinks.beer_servings > 300, 1, 0) #Will create a new column with lots_of_beer true if > 300 beer units are consumed
+drinks.sort_index(by='lots_of_beer').tail(15)
+
+drinks['full_of_drunkards'] = np.where(drinks.total_litres_of_pure_alcohol > 10, 'Drunks', 'Not So Drunks')
+drinks.sort_index(by="total_litres_of_pure_alcohol").tail(10)
 
 
 
 
+'''EXERCISE 2'''
+#What is the average number of total litres of pure alcohol for each continent?
+drinks.groupby('continent').total_litres_of_pure_alcohol.mean()
+#CORRECT
 
+
+
+#For each continent, calculate the mean wine_servings for all countries who 
+#have a spirit servings greater than the overall spirit servings mean
+drinks[drinks.spirit_servings > drinks.spirit_servings.mean()].groupby('continent').wine_servings.mean()
+#CORRECT
+
+
+
+#Per continent, for all of the countries that drink more beer servings than
+#the average number of beer servings, what is the average number of wine servings?
+
+#TWO ATTEMPTS.  NEITHER WORKS
+#drinks.groupby('continent')[drinks.beer_servings > drinks.beer_servings.mean()].wine_servings.mean()
+#drinks[groupby('continent').drinks.beer_servings > groupby('continent').drinks.beer_servings.mean()].wine_servings.mean()
+#TWO ATTEMPTS.  NEITHER WORKS
+
+#CLASS ANSWER - DOES THIS COMPARE EACH COUNTRY TO CONTINENTAL MEANS?
+drinks[drinks.beer_servings > drinks.beer_servings.mean()].groupby('continent').wine_servings.mean()
+
+
+
+
+''' Advanced Filtering '''
+
+# loc: filter rows by LABEL, and select columns by LABEL
+drinks.loc[0]   #rows with label 0 - index value is 0
+drinks.loc[0:3]
+drinks.loc[0:3, 'beer_servings':'wine_servings'] # Rows 0 to 3, returns beer_servings through wine_servings
+drinks.loc[:, 'beer_servings':'wine_servings']
+drinks.loc[[0, 3], ['beer_servings', 'spirit_servings']] #Rows 1 and 4, two columns
+
+
+# iloc: filter rows by POSITION, and select columns by POSITION
+drinks.iloc[0] #Row with 0th position (first row)
+drinks.iloc[0:3]
+drinks.iloc[0:3, 0:3] # rows and columns with positions 0 through 2
+drinks.iloc[:, 0:3] #include all rows, and first three columns
+drinks.iloc[[0,2],[0,1]] #return 1st and 3rd row, 1st and 2nd column
+
+
+#mixing: select columns by LABEL, then filter by POSITION
 
 
