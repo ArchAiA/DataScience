@@ -118,6 +118,9 @@ plt.ylabel('Mean Miles Per Gallon')
 plt.show()
 
 
+
+
+
 autos.plot(kind='scatter', x='model_year', y='mpg')
 plt.show()
 
