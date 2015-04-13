@@ -7,6 +7,7 @@ Created on Wed Apr 08 22:47:28 2015
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 df = pd.read_csv('train.csv')
 
@@ -73,12 +74,43 @@ df[df.Age.notnull()].describe() - df[df.Age.isnull()].describe()
 #Pclass: Very closely matched the mean, and median Pclass (2.24%), and (2.0)
 #Survived: Very closely matched the general survival rate (40.62%) by mean.
 
-#COMPARING PASSENGERS NOTNULL TO PASSENGERS ISNULL
-#Fare: ISNULL paid 12.54 less by median, and 7.69 less by  median
+#COMPARING PASSENGERS WITH AGE NOTNULL TO PASSENGERS ISNULL
+#Fare: ISNULL paid 12.54 less by mean, and 7.69 less by  median
 #Pclass: ISNULL were in a slightly higher class by mean, and by median... <REREAD>
 #Survived: ISNULL were less likely to survive by mean (difference of 11.24% by mean)
 
-#Mean Survived: 
+'''SURVIVAL BY FIRST CHARACTER OF TICKET.  THIS IS IMPORTANT'''
+#What were the survival rates by the first letter of each ticket
+df.groupby(df.Ticket.str[:1]).Survived.count()
+df.groupby(df.Ticket.str[:1]).Survived.sum()
+df.groupby(df.Ticket.str[:1]).Survived.sum() / df.groupby(df.Ticket.str[:1]).Survived.count()
+'''SURVIVAL BY FIRST CHARACTER OF TICKET.  THIS IS IMPORTANT''' 
+'''ANS: I THINK THAT THE NUMBERS ARE JUST SMALL SO IT CAN SEEM SIG WHEN IT ISNT'''
+
+
+
+'''Explore Age Null Values by Sex'''
+df[df.Age.isnull()].groupby('Sex').Survived.mean()
+df[df.Age.notnull()].groupby('Sex').Survived.mean()
+
+df[df.Age.isnull()].groupby('Sex').count()
+df[df.Age.isnull()].groupby('Sex').sum()
+#Those with a NULL value for age were 8% points more likely to die than those with NOTNULL values for either Sex
+'''Explore Age Null Values by Gender'''
+
+
+
+'''GRAPHING'''
+df[df.Age.notnull()].plot(kind='scatter', x='Age', y='Fare')
+
+df.groupby(df.Age).Survived.mean().plot(kind='bar')
+df.plot(kind='scatter', x='Fare', y='Age')
+
+
+headers = df.columns.values
+for header in headers:
+    print header
+    df[df.Age.notnull()].groupby('Age')[header].mean()
 
 
 
