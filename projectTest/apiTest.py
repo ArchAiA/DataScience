@@ -20,7 +20,7 @@ while len(tempData) > 0:
     tempCount += 500
     tempData = pd.read_json('http://search.worldbank.org/api/v2/projects?format=json&source=IBRD&rows=', tempCount, '&os=0&kw=N')
     
-#data.to_json('jsonOutput.txt')
+data.to_json('jsonOutput2.txt')
 
 #test = pd.read_json('jsonOutput.txt')
 
