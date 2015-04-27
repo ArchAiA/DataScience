@@ -6,7 +6,6 @@ Created on Tue Apr 07 21:14:11 2015
 """
 
 import pandas as pd
-<<<<<<< HEAD
 import json
 
 
