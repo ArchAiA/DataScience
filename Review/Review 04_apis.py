@@ -65,10 +65,19 @@ def get_sentiment(text):
 '''
 '''CLASS ANSWER'''
 
+
+'''MY ANSWER'''
 def getSentiment(text):
     url = 'http://www.datasciencetoolkit.org/text2sentiment/'
     header = {'content-type':'application/json'}
     body = text
+    
+    response = requests.post(url=url, headers=header, data=body)
+    r_json = json.loads(response.text)
+    sentiment = r_json['score']
+    return sentiment
+'''MY ANSWER'''
+
 
 
 
@@ -76,11 +85,26 @@ def getSentiment(text):
 # We now have multiple sentences
 sentences = ['I love pizza!', 'I hate pizza!', 'I feel nothing about pizza!']
 
+'''MY ANSWER'''
+for sentence in sentences:
+    print sentence, getSentiment(sentence)
+
+
+
+
+
+'''MY ANSWER'''
+
+'''CLASS ANSWER'''   
+'''
 # Loop through the sentences
 for sentence in sentences:
     sentiment = get_sentiment(sentence)
     print sentence, sentiment # Print the results
-   
+'''
+'''CLASS ANSWER'''   
+
+
 
 '''
 APIs with wrappers (i.e. there is a nicely formatted function)    
