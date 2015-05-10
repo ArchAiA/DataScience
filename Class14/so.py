@@ -16,41 +16,41 @@ df.isnull().sum()
 df.columns
 df.head()
 
-df.groupby(df.OpenStatus).describe()
+df.groupby(df.Status).describe()
 
 #Half is open and half is closed (not a representative sample) - Generally 6% are closed
-df.OpenStatus.value_counts()
+df.Status.value_counts()
 #Some people post much more often than others
 df.OwnerUserId.value_counts()
 
 
 #Reputation
-df.groupby(df.OpenStatus).ReputationAtPostCreation.mean() #Reputation matters
-df.groupby(df.OpenStatus).ReputationAtPostCreation.describe()
-df[df.ReputationAtPostCreation < 1000].ReputationAtPostCreation.hist()
-df[df.ReputationAtPostCreation < 1000].ReputationAtPostCreation.hist(by=df.OpenStatus, sharey=True)
+df.groupby(df.Status).Reputation.mean() #Reputation matters
+df.groupby(df.Status).Reputation.describe()
+df[df.Reputation < 1000].Reputation.hist()
+df[df.Reputation < 1000].Reputation.hist(by=df.Status, sharey=True)
 #Does this mean that if reputation is 13+ that there much less chance of the question being closed?
 
 
 
 
-df.groupby(df.OpenStatus).OwnerUndeletedAnswerCountAtPostTime.mean() #Undeleted answer count matters
-df.groupby(df.OpenStatus).OwnerUndeletedAnswerCountAtPostTime.describe() #Undeleted answer count matters
+df.groupby(df.Status).Answers.mean() #Undeleted answer count matters
+df.groupby(df.Status).Answers.describe() #Undeleted answer count matters
 
-df.groupby(df.OpenStatus).OwnerUserId.mean() #People with lower user IDs had fewer closed questions
-df.groupby(df.OpenStatus).OwnerUserId.describe() #People with lower user IDs had fewer closed questions
+df.groupby(df.Status).OwnerUserId.mean() #People with lower user IDs had fewer closed questions
+df.groupby(df.Status).OwnerUserId.describe() #People with lower user IDs had fewer closed questions
 df.sort('OwnerUserId').OwnerCreationDate #UserIds do increase over time
 
 #More recent posts more likely to be open
-df.groupby(df.OpenStatus).PostId.describe()
+df.groupby(df.Status).PostId.describe()
 
-df.ReputationAtPostCreation.describe()
+df.Reputation.describe()
 
 #Some people post much more often than others
 df.OwnerUserId.value_counts()
 df[df.OwnerUserId == 466534]
-df[df.OwnerUserId == 466534].groupby(df.OpenStatus).PostId.describe()
-df[df.OwnerUserId == 466534].OpenStatus.sum()
+df[df.OwnerUserId == 466534].groupby(df.Status).PostId.describe()
+df[df.OwnerUserId == 466534].Status.sum()
 #We should look more at people that post more often.  Do they get more closed questions than others?
 #Do people that do not use proper upper/lower case have more closed questions.
 #Do people with bad grammar have more closed questions?
@@ -65,19 +65,19 @@ df[df.OwnerUserId == 34537]
 
 
 #RENAMING COLUMNS
-df.rename(columns={'OwnerUndeletedAnswerCountAtPostTime': 'Answers'}, inplace=True)
+df.rename(columns={'Answers': 'Answers'}, inplace=True)
 
 
 
 
 #Checking if Title Length is Relevant: It's Not
 df['TitleLength'] = df.Title.apply(len)
-df.groupby(df.OpenStatus).TitleLength.describe()
+df.groupby(df.Status).TitleLength.describe()
 
 #CHecking if Body Length is Relevant: It Kind of Is
 df['BodyLength'] = df.BodyMarkdown.apply(len)
-df.groupby(df.OpenStatus).BodyLength.describe()
-df.BodyLength.hist(by=df.OpenStatus)
+df.groupby(df.Status).BodyLength.describe()
+df.BodyLength.hist(by=df.Status)
 
 
 
@@ -90,15 +90,15 @@ len(df.Tag4.unique())
 len(df.Tag5.unique())
 
 #We can use the agg() function to aggregate by the number of unique Tag1 occurrences
-df.groupby(df.Tag1).OpenStatus.mean()
-df.groupby(df.Tag1).OpenStatus.agg(['mean', 'count'])
-df.groupby(df.Tag1).OpenStatus.agg(['mean', 'count']).sort('count')
+df.groupby(df.Tag1).Status.mean()
+df.groupby(df.Tag1).Status.agg(['mean', 'count'])
+df.groupby(df.Tag1).Status.agg(['mean', 'count']).sort('count')
 
 
 
 
 df['NumTags'] = df.loc[:, 'Tag1':'Tag5'].notnull().sum(axis=1)
-df.groupby(df.OpenStatus).NumTags.describe()
+df.groupby(df.Status).NumTags.describe()
 
 
 
@@ -106,9 +106,9 @@ df.groupby(df.OpenStatus).NumTags.describe()
 
 
 '''BUILDING A MODEL'''
-feat_cols = ['ReputationAtPostCreation']
+feat_cols = ['Reputation']
 X = df[feat_cols]
-y = df.OpenStatus
+y = df.Status
 
 #Train Test Split
 from sklearn.cross_validation import train_test_split
@@ -119,7 +119,7 @@ from sklearn.linear_model import LogisticRegression #IMPORT
 logreg = LogisticRegression()                       #INSTANTIATE
 logreg.fit(X_train, y_train)                        #FIT
 
-logreg.coef_ #The coefficient makes sense.  As reputation increases the log odds of the OpenStatus being 1 increases
+logreg.coef_ #The coefficient makes sense.  As reputation increases the log odds of the Status being 1 increases
 
 #Predicting
 y_pred = logreg.predict(X_test)
@@ -149,7 +149,7 @@ logreg.fit(X, y)
 test_pred = logreg.predict_proba(testdf[feat_cols])[:,1]
 
 #Creating the submission
-sub = pd.DataFrame({'id':testdf.index, 'OpenStatus':test_pred}).set_index('id')
+sub = pd.DataFrame({'id':testdf.index, 'Status':test_pred}).set_index('id')
 sub.to_csv('sub1.csv')
 
 
@@ -160,7 +160,7 @@ sub.to_csv('sub1.csv')
 def MakeFeatures(filename):
     df = pd.read_csv(filename, index_col=0)
     
-    df.rename(columns={'OwnerUndeletedAnswerCountAtPostTime': 'Answers'}, inplace=True)
+    df.rename(columns={'Answers': 'Answers'}, inplace=True)
     df['TitleLength'] = df.Title.apply(len)
     df['BodyLength'] = df.BodyMarkdown.apply(len)
     df['NumTags'] = df.loc[:, 'Tag1':'Tag5'].notnull().sum(axis=1)
@@ -173,9 +173,9 @@ traindf = MakeFeatures('train.csv')
 testdf = MakeFeatures('test.csv')
 
 
-feat_cols = ['ReputationAtPostCreation', 'Answers', 'TitleLength', 'BodyLength', 'NumTags']
+feat_cols = ['Reputation', 'Answers', 'TitleLength', 'BodyLength', 'NumTags']
 X = traindf[feat_cols]
-y = traindf.OpenStatus
+y = traindf.Status
 logreg.fit(X, y)
 sub2 = logreg.predict_proba(testdf[feat_cols])[:,1]
 '''ATTEMPT #2'''
@@ -192,7 +192,7 @@ sub2 = logreg.predict_proba(testdf[feat_cols])[:,1]
 #Is the entire title in lower case?
 df.Title
 df['TitleLowercase'] = (df.Title.str.lower() == df.Title).astype(int)
-df.groupby(df.TitleLowercase).OpenStatus.mean()
+df.groupby(df.TitleLowercase).Status.mean()
 #Is the entire title in lower case?
 
 #Creating Text Features

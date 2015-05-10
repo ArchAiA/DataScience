@@ -7,8 +7,11 @@ Created on Thu May  7 12:33:55 2015
 
 import pandas as pd
 import matplotlib.pyplot as plt
+#import os
 
-df = pd.read_csv('train.csv', index_col=0)
+#os.chdir('/home/david/projects/data')
+
+df = pd.read_csv('/home/david/projects/data/SO/train.csv', index_col=0)
 
 '''Data Preparation'''
 #Changing Column Names
@@ -30,6 +33,7 @@ df['TitleLength'] = df.Title.apply(len)
 
 df['PostCount'] = 0
 for item in df.sort('OwnerUserId'):
+    print df[item]
     
 
 #Creating New Features
