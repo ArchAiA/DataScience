@@ -7,9 +7,10 @@ Created on Thu May 14 22:39:55 2015
 #Import Modules
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 #Read In Data
-df = pd.read_csv('train.csv', index_col=0)
+df = pd.read_csv('../../../../Sites/data/so/train.csv', index_col=0)
 
 
 # Helper code for class 17 exercise
