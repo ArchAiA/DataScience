@@ -10,7 +10,8 @@ import matplotlib.pyplot as plt
 import os
 
 #Read In Data
-df = pd.read_csv('../../../../Sites/data/so/train.csv', index_col=0)
+os.chdir('../../../../Sites/data/so/')
+df = pd.read_csv('train.csv', index_col=0)
 
 
 # Helper code for class 17 exercise
