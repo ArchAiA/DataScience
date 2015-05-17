@@ -55,7 +55,7 @@ awards[awards.major_sector == "Transportation"].groupby(awards.supplier_country)
 awards[awards.major_sector == "Agriculture, fishing, and forestry"].groupby(awards.supplier_country).count()
 
 #Top major sectors average contract value
-awards[awards.major_sector == "Public Administration, Law, and Justice"].contract_amount.describe()
+awards[awards.major_sector == "Public Administration, Law, and Justice"].contract_amount.mean()
 
 
 
