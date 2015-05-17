@@ -6,21 +6,28 @@ Created on Tue Apr 07 21:14:11 2015
 """
 
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
+import os
 
 #The raw json data is really, really ugly, and unusable
 #rawdata = pd.read_json('http://search.worldbank.org/api/v2/projects?format=json&rows=10&os=0&source=IBRD&kw=N')
 #rawdata = pd.read_csv('jsonOutput3.txt')
-rawdata = pd.read_csv('wbprojects.csv', thousands=';')
-data = rawdata
+
+data = pd.read_csv('wbprojects.csv', thousands=';')
+awards = pd.read_csv('..)
 #data.projects.P114294['regionname']
 
 #in order to make the raw data usable, we have to create a new dataframe
 #by extracting the useful part of the raw dataframe
+#NO LONGER NEEDED
+'''
 data = pd.DataFrame()
 
 for item in rawdata.projects:
     data = data.append(item, ignore_index=True)
+'''
+#NO LONGER NEEDED
+
 
 #Dealing with unicode...
 data['lendprojectcost'] = data.lendprojectcost.astype(float)
